@@ -1,0 +1,98 @@
+package com.Projects.app.Authorization.Model;
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+
+@Entity
+@Table(name = "Holder")
+public class LoginModel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "UserID")
+    private Integer userID;
+
+    @Column(name = "auth_token")
+    private String authToken;
+
+    @Column(name = "Email")
+    private String email;
+
+    @Column(name = "pass")
+    private String password;
+
+    @Column(name = "authstats")
+    private Boolean authStats;
+
+    @Column(name = "authip")
+    private String authIP;
+
+    @Column(name = "tokenCreationDate")
+    private LocalDateTime tokenCreationDate;
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
+    }
+
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.password = userPassword;
+    }
+
+    public boolean isAuthStats() {
+        return authStats;
+    }
+
+    public void setAuthStats(boolean authStats) {
+        this.authStats = authStats;
+    }
+
+    public String getAuthIP() {
+        return authIP;
+    }
+
+    public void setAuthIP(String authIP) {
+        this.authIP = authIP;
+    }
+
+    public LocalDateTime getTokenCreationDate() {
+        return tokenCreationDate;
+    }
+
+    public void setTokenCreationDate(LocalDateTime tokenCreationDate) {
+        this.tokenCreationDate = tokenCreationDate;
+    }
+}
