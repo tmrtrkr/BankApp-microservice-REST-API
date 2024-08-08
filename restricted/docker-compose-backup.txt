@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  bank-app-db-1:
+    image: postgres:latest
+    container_name: bank-app-db-1-1
+    build:
+      context: ./db_backup
+      # dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5321:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 123321
+    volumes:
+      - dbdata1:/var/lib/postgresql/data
+      - ./db_backup/backup.sql:/docker-entrypoint-initdb.d/backup.sql
+    networks:
+      - banknetwork
+
+  getservices:
+    build: ./getServices
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_NAME: getServices
+      SPRING_DATASOURCE_URL: jdbc:postgresql://bank-app-db-1:5432/postgres
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: 123321
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: true
+      TZ: 'Europe/Istanbul'
+    networks:
+      - banknetwork
+
+
+  business:
+    build: ./bankApplication
+    restart: always
+    depends_on:
+      - getservices
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_APPLICATION_NAME: businessApplication
+      SPRING_DATASOURCE_URL: jdbc:postgresql://bank-app-db-1:5432/postgres
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: 123321
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: true
+      SPRING_MAIL_HOST: ---
+      SPRING_MAIL_PORT: ---
+      SPRING_MAIL_USERNAME: ---
+      SPRING_MAIL_PASSWORD: ---
+      SPRING_MAIL_PROPERTIES_SMTP_AUTH: true
+      SPRING_MAIL_PROPERTIES_SMTP_STARTTLS_ENABLE: true
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: true
+      AUTHENTICATION_URL: http://getservices:8080/authorize
+      TZ: 'Europe/Istanbul'
+    networks:
+      - banknetwork
+
+networks:
+  banknetwork:
+    external: true
+
+volumes:
+  dbdata1: {}
