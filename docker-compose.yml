@@ -62,7 +62,7 @@ services:
       SPRING_MAIL_PROPERTIES_SMTP_AUTH: true
       SPRING_MAIL_PROPERTIES_SMTP_STARTTLS_ENABLE: true
       SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: true
-      AUTHENTICATION_URL: http://getservices:8080/authenticate
+      AUTHENTICATION_URL: http://getservices:8080/authorize
       TZ: 'Europe/Istanbul'
     networks:
       - banknetwork

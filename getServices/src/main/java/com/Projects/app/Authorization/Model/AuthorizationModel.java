@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Holder")
-public class AuthenticationModel {
+public class AuthorizationModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

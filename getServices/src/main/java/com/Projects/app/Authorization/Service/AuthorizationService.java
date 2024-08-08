@@ -1,7 +1,7 @@
 package com.Projects.app.Authorization.Service;
 
-import com.Projects.app.Authorization.Model.AuthenticationModel;
-import com.Projects.app.Authorization.Repository.AuthenticationRepo;
+import com.Projects.app.Authorization.Model.AuthorizationModel;
+import com.Projects.app.Authorization.Repository.AuthorizationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,27 +10,27 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 @Service
-public class AuthenticationService {
+public class AuthorizationService {
     @Autowired
-    private AuthenticationRepo authenticationRepo;
+    private AuthorizationRepo authorizationRepo;
 
-    public Optional<String> authenticateUser(String token, String IP) {
+    public Optional<String> authorizeUser(String token, String IP) {
         try {
             // Fetching authentication data using the token
-            Optional<AuthenticationModel> authModelOptional = authenticationRepo.findByAuthToken(token);
+            Optional<AuthorizationModel> authModelOptional = authorizationRepo.findByAuthToken(token);
 
             // Check if token data is present
             if (authModelOptional.isPresent()) {
-                AuthenticationModel authenticationModel = authModelOptional.get();
+                AuthorizationModel authorizationModel = authModelOptional.get();
 
                 // Check if the token is expired
-                if (ChronoUnit.MINUTES.between(authenticationModel.getTokenCreationDate(), LocalDateTime.now()) > 20) {
+                if (ChronoUnit.MINUTES.between(authorizationModel.getTokenCreationDate(), LocalDateTime.now()) > 20) {
                     return Optional.of("This token has expired");
                 }
 
                 // Check if user's IP matches and the token is still active
-                if (authenticationModel.getAuthIP().equals(IP) && authenticationModel.isAuthStats()) {
-                    return Optional.of(authenticationModel.getUserID().toString());
+                if (authorizationModel.getAuthIP().equals(IP) && authorizationModel.isAuthStats()) {
+                    return Optional.of(authorizationModel.getUserID().toString());
                 } else {
                     return Optional.of("Authentication failed: IP mismatch or inactive token");
                 }

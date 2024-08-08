@@ -1,6 +1,6 @@
 package com.Projects.app.Authorization.Controller;
 
-import com.Projects.app.Authorization.Service.AuthenticationService;
+import com.Projects.app.Authorization.Service.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,17 +12,17 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 
 @RestController
-public class AuthenticationController {
+public class AuthorizationController {
 
     @Autowired
-    private AuthenticationService authenticationService;
+    private AuthorizationService authorizationService;
 
-    // Repository pattern uygulanıcak   DataAccess.O-iş extends CRUD uygulanacak, 
 
-    @GetMapping("/authenticate")
+
+    @GetMapping("/authorize")
     public ResponseEntity<String> authenticateUser(@RequestHeader("Token") String token, @RequestHeader("IP") String IP) {
         try {
-            Optional<String> optionalResult = authenticationService.authenticateUser(token, IP);
+            Optional<String> optionalResult = authorizationService.authorizeUser(token, IP);
 
             return optionalResult
                     .map(user -> ResponseEntity.ok().body(user))
