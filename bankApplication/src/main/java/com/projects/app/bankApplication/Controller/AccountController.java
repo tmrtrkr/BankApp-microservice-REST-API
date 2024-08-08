@@ -120,23 +120,30 @@ public class AccountController {
 
 
     @GetMapping(value="/accountSummary")
-    public ResponseEntity<?> accountSummary(@RequestHeader(name = "Token") String clientToken, @RequestParam UUID AccID, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<?> accountSummary(@RequestHeader(name = "Token") String clientToken, @RequestParam(name="AccID") String AccID, HttpServletRequest httpServletRequest) {
         // Get UserID or error message from Authentication response
         String response = HttpRequestService.httpGetUserIDByToken(clientToken, httpServletRequest.getRemoteAddr());
+
+        UUID accID;
+        try {
+            accID = UUID.fromString(AccID);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid UUID format: " + AccID);
+        }
 
         try {
             // Try to parse the response to integer assuming it's a valid UserID
             int userID = Integer.parseInt(response);
 
             // If successful, retrieve the account by AccID and UserID
-            Account account = AccountsService.findAccountByAccIDAndUserID(AccID, userID);
+            Account account = AccountsService.findAccountByAccIDAndUserID(accID, userID);
             return ResponseEntity.ok(account);  // Return the account with status 200 OK
         } catch (NumberFormatException e) {
             // If parsing fails, it means the response was an error message
-            return ResponseEntity.badRequest().body("Invalid parameter provided: " + AccID );  // Return the error message with status 400 Bad Request
+            return ResponseEntity.badRequest().body("Invalid parameter provided: " + AccID);  // Return the error message with status 400 Bad Request
         }
-
     }
+
 
 
 /*

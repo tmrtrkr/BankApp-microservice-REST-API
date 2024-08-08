@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "f9196812-0b5b-4c0c-82b4-050ae12c6d2c",
+		"name": "BankAppRequests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34482905"
+	},
+	"item": [
+		{
+			"name": "getServices/Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"yapimgenc@gmail.com\",\r\n  \"password\": \"123123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bankApplication/OpenAccount",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Token",
+						"value": "4d62e9fa-3bde-49d2-8aa1-9e5e04046ba6",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"AccType\": \"Deposit\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/OpenAccount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"OpenAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bankApplication/signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"tasa@example.com\",\r\n  \"fullname\": \"John\",\r\n  \"surname\": \"Doe\",\r\n  \"phone\": \"123-456-7890\",\r\n  \"userPassword\": \"Password123\",\r\n  \"userbirthdate\": \"2000-01-01\",\r\n  \"gender\": \"Male\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bankApplication/accountSummary",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "2fac1f6c-2a41-4662-a933-8c1100c92330",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"AccID\": \"62504914-c4ef-4ec0-9a5e-f9e3b0457741\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/accountSummary",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"accountSummary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bankApplication/accountTransaction",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "2fac1f6c-2a41-4662-a933-8c1100c92330",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"AccID\": \"62504914-c4ef-4ec0-9a5e-f9e3b0457741\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/accountSummary",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"accountSummary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bankApplication/alltransactions",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "2fac1f6c-2a41-4662-a933-8c1100c92330",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/alltransactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"alltransactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/accountList",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "fe85851b-fdbd-4d8c-bafb-8425046be755",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/accountList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"accountList"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
